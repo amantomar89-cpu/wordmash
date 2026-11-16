@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Word Mash</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4941094941902752"
+     crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#150b2e;--card:#241447;--ink:#fff4e6;--mut:#b9a8e0;--pink:#ff4fa3;--lime:#c8ff3d;--cyan:#35e0ff;--tile:#fff4e6;--tileink:#2a1450;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fff1f7;--card:#fff;--ink:#2a1450;--mut:#6b5a8e;--tile:#2a1450;--tileink:#fff4e6;color-scheme:light}}
+:root[data-theme="light"]{--bg:#fff1f7;--card:#fff;--ink:#2a1450;--mut:#6b5a8e;--tile:#2a1450;--tileink:#fff4e6;color-scheme:light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+button:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg i{position:absolute;width:90px;height:90px;border-radius:30%;opacity:.16;animation:fl 14s ease-in-out infinite alternate}
+.bg i:nth-child(1){left:6%;top:10%;background:var(--pink)}.bg i:nth-child(2){right:8%;top:22%;background:var(--cyan);border-radius:50%;animation-delay:-4s}
+.bg i:nth-child(3){left:14%;bottom:16%;background:var(--lime);border-radius:50%;animation-delay:-8s}.bg i:nth-child(4){right:12%;bottom:8%;background:var(--pink);animation-delay:-2s}
+.bg i:nth-child(5){left:48%;top:48%;background:var(--cyan);width:50px;height:50px;animation-delay:-6s}
+@keyframes fl{to{transform:translate(30px,-60px) rotate(60deg)}}
+#app{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:16px}
+.screen{display:none}.screen.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+.logo{text-align:center;margin:18px 0 8px}
+.logo b{display:inline-block;font-size:clamp(44px,13vw,64px);font-weight:800;padding:2px 16px;border-radius:18px;letter-spacing:-1px;box-shadow:0 8px 0 rgba(0,0,0,.25)}
+.logo b:first-child{background:var(--pink);color:#fff;transform:rotate(-5deg)}.logo b:last-child{background:var(--lime);color:#2a1450;transform:rotate(4deg);margin-left:-6px}
+.sub{text-align:center;color:var(--mut);margin:14px 0 18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border-radius:18px;padding:10px;text-align:center}.stat b{display:block;font-size:24px}.stat span{font-size:13px;color:var(--mut)}
+.btn{display:block;width:100%;padding:16px;border-radius:20px;font-weight:800;font-size:19px;margin-bottom:12px;transition:transform .12s}
+.btn:active{transform:scale(.96)}
+.go{background:linear-gradient(135deg,var(--pink),#ff8a4f);color:#fff;box-shadow:0 6px 0 #b82e73}
+.dly{background:var(--cyan);color:#10213f;box-shadow:0 6px 0 #1d93ab}.dly small{display:block;font-weight:500;font-size:13px}
+.sec{background:var(--card);color:var(--ink)}
+h3{margin:22px 0 10px;font-size:18px}
+.lv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lv button{background:var(--card);border-radius:18px;padding:14px;text-align:left;border-bottom:4px solid var(--c);transition:transform .12s}
+.lv button:hover{transform:translateY(-3px)}.lv b{display:block;font-size:18px}.lv span{color:var(--mut);font-size:13px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}.bd{background:var(--card);border-radius:14px;padding:6px 10px;font-size:13px}.bd.off{opacity:.35;filter:grayscale(1)}
+.bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ib{background:var(--card);width:42px;height:42px;border-radius:14px;font-size:18px}
+.lab{flex:1;text-align:center;font-weight:800}
+.prog{height:10px;border-radius:9px;background:var(--card);overflow:hidden;margin-bottom:12px}.prog div{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--lime));transition:width .5s}
+.row{display:flex;justify-content:space-between;font-weight:700;margin-bottom:12px}
+.clue{background:var(--card);border-radius:24px;padding:22px 16px;text-align:center;font-size:22px;font-weight:700;margin-bottom:18px;min-height:96px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+.clue small{font-size:13px;color:var(--mut);font-weight:500}
+.slots,.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:18px}
+.slot{min-width:84px;height:56px;padding:0 14px;border-radius:16px;border:3px dashed var(--mut);background:transparent;font-weight:800;font-size:19px;color:var(--ink)}
+.slot.f{border:3px solid var(--lime);background:var(--card);animation:pop .25s}.slot.k{border-color:var(--cyan)}
+.tile{padding:14px 18px;border-radius:16px;background:var(--tile);color:var(--tileink);font-weight:800;font-size:20px;box-shadow:0 5px 0 rgba(0,0,0,.3);transition:transform .12s,opacity .25s}
+.tile:hover{transform:translateY(-3px) rotate(-2deg)}.tile:active{transform:scale(.93)}
+.tile.used{opacity:.15;pointer-events:none}.tile.hide{display:none}
+@keyframes pop{from{transform:scale(.7)}}
+.shake{animation:sh .45s}@keyframes sh{20%{transform:translateX(-12px)}40%{transform:translateX(12px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+#modal{position:fixed;inset:0;z-index:20;background:rgba(10,4,25,.7);display:none;align-items:center;justify-content:center;padding:20px}
+#modal.on{display:flex}
+.pop{background:var(--card);border-radius:28px;padding:26px 20px;max-width:400px;width:100%;text-align:center;animation:bounce .5s cubic-bezier(.2,1.6,.4,1)}
+.pop.win{box-shadow:0 0 50px var(--lime)}.pop.bad{animation:bounce .5s,sh .6s .3s}
+@keyframes bounce{from{transform:scale(.4);opacity:0}}
+.pop h2{font-size:24px;margin:8px 0 12px;line-height:1.2}.big{font-size:60px;animation:wob 1s infinite alternate}
+@keyframes wob{to{transform:rotate(12deg) scale(1.15)}}
+.ans{background:var(--tile);color:var(--tileink);border-radius:14px;padding:10px;font-weight:800;margin:10px 0}
+#cf{position:fixed;inset:0;z-index:30;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:30px;font-weight:700;opacity:0;transition:.3s;z-index:40;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.ad{margin:18px 0;min-height:60px;text-align:center;overflow:hidden}
+
+.screen{position:relative}#game{transition:opacity .2s}
+body{background:radial-gradient(900px 600px at 0% -10%,#6a2fe8 0,transparent 60%),radial-gradient(800px 600px at 100% 0%,#ff3d9a66 0,transparent 55%),radial-gradient(700px 500px at 50% 110%,#35e0ff44 0,transparent 60%),var(--bg);background-attachment:fixed}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) body{background:radial-gradient(900px 600px at 0% -10%,#ffd0ea 0,transparent 60%),radial-gradient(800px 600px at 100% 0%,#d7c8ff 0,transparent 55%),var(--bg)}}
+.bg i{background:none!important;width:auto;height:auto;font-style:normal;font-size:42px;opacity:.4;filter:drop-shadow(0 0 12px var(--pink))}
+.bg i:nth-child(1)::after{content:"✨"}.bg i:nth-child(2)::after{content:"🧩"}.bg i:nth-child(3)::after{content:"💬"}.bg i:nth-child(4)::after{content:"⭐"}.bg i:nth-child(5)::after{content:"🔥"}
+.logo b{background-size:200% 100%;animation:sh2 3s linear infinite;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+.logo b:first-child{background-image:linear-gradient(110deg,#ff4fa3 30%,#ff9ad0 50%,#ff4fa3 70%)}.logo b:last-child{background-image:linear-gradient(110deg,#c8ff3d 30%,#f4ffb0 50%,#c8ff3d 70%)}
+@keyframes sh2{to{background-position:-200% 0}}
+.stat,.lv button,.clue,.bd{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.03)),var(--card);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 24px rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.clue{border:2px solid transparent;background-clip:padding-box;outline:2px solid rgba(255,79,163,.5);box-shadow:0 0 30px rgba(255,79,163,.35),0 10px 30px rgba(0,0,0,.3);font-size:clamp(22px,6vw,30px)}
+.tile{background:linear-gradient(180deg,#fff 0,#ffe1f1 100%);color:#2a1450;box-shadow:0 6px 0 #c9a0c0,0 12px 20px rgba(0,0,0,.3);animation:bob 3s ease-in-out infinite}
+.tile:nth-child(2n){animation-delay:-1s}.tile:nth-child(3n){animation-delay:-2s}
+@keyframes bob{50%{transform:translateY(-4px) rotate(1deg)}}
+.slot.f{background:linear-gradient(135deg,var(--pink),#ff8a4f);border-color:transparent;color:#fff;box-shadow:0 0 22px rgba(255,79,163,.6)}
+.go{position:relative;overflow:hidden}.go::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-100%);animation:gl 3s infinite}
+@keyframes gl{to{transform:translateX(100%)}}
+.prog div{box-shadow:0 0 14px var(--lime)}
+.pop{border:2px solid rgba(200,255,61,.4);background:linear-gradient(160deg,rgba(255,255,255,.12),transparent),var(--card)}
+.pop.bad{border-color:rgba(255,79,163,.6);box-shadow:0 0 40px rgba(255,79,163,.5)}
+.hos{background:linear-gradient(135deg,#2de2c0,#35a0ff);color:#06213a;box-shadow:0 6px 0 #1b8a9a}
+.stats{grid-template-columns:repeat(4,1fr);gap:8px}.stat{padding:8px 4px}.stat b{font-size:19px}.stat span{font-size:11px}
+.sc b{color:var(--lime)}.bst b{color:var(--pink)}
+.rk{display:flex;align-items:center;gap:10px;margin:-4px 0 16px;font-weight:700;font-size:13px}.rk small{color:var(--mut);white-space:nowrap}
+.xb{flex:1;height:9px;border-radius:9px;background:var(--card);overflow:hidden;margin:6px 0}.xb u{display:block;height:100%;width:0;background:var(--cyan);transition:width .8s}
+.lc{position:relative;overflow:hidden}.lc b{font-size:16px!important}.lc i{display:block;height:6px;border-radius:6px;background:rgba(255,255,255,.12);margin:8px 0 6px;overflow:hidden}.lc u{display:block;height:100%;background:var(--c);transition:width .8s}.lc em{font-style:normal;font-size:12px;color:var(--mut)}
+.lc.lock{opacity:.5}.lc.nu{animation:pop .6s}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bd{display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:14px}.bd b{font-size:24px}.bd strong{font-size:13px}.bd small{display:block;color:var(--mut);font-size:11px;line-height:1.2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cr{font-weight:800;color:var(--lime)}.cb{animation:pop .4s}
+.sur{color:#ffb43d;font-weight:800;font-size:15px;animation:pop .5s}
+</style>
+</head>
+<body>
+<div class="bg"><i></i><i></i><i></i><i></i><i></i></div>
+<main id="app">
+<section id="home" class="screen on">
+  <button class="ib" data-a="mus" aria-label="Music" style="position:absolute;right:0;top:0">🎵</button>
+  <div class="logo"><b>Word</b><b>Mash</b></div>
+  <p class="sub">Smash the pieces together. Say “oh, obviously.”</p>
+  <div class="stats"><div class="stat sc"><b id="hs">0</b><span>Score</span></div><div class="stat bst"><b id="hb">0</b><span>Best</span></div><div class="stat"><b id="hk">0</b><span>Streak</span></div><div class="stat"><b id="hn">0</b><span>Solved</span></div><div class="stat"><b id="hl2">1</b><span>Level</span></div><div class="stat"><b id="hx">0</b><span>XP</span></div><div class="stat"><b id="ht">–</b><span>Best time</span></div><div class="stat"><b id="hd">0</b><span>Day streak</span></div></div>
+  <div class="rk"><span id="rn">Beginner</span><div class="xb"><u id="xu"></u></div><small id="rx"></small></div>
+  <button class="btn go" data-a="play">Start playing</button>
+  <button class="btn dly" data-a="daily" id="dl">Daily challenge</button>
+  <h3>Pick a level</h3><div class="lv" id="lv"></div>
+  <h3>🏨 Hospitality puzzles</h3><button class="btn hos" data-a="tier" data-t="hosp">Check in to Hospitality<small style="display:block;font-weight:500;font-size:13px">Hotel, restaurant and travel words · endless</small></button>
+  <h3>Badges</h3><div class="badges" id="bg"></div>
+</section>
+<section id="game" class="screen">
+  <div class="bar"><button class="ib" data-a="pause" aria-label="Pause">⏸</button><div class="lab" id="gl"></div><button class="ib" data-a="mus" aria-label="Music">🎵</button><button class="ib" data-a="snd" id="sb" aria-label="Sound">🔊</button></div>
+  <div class="prog"><div id="pg"></div></div>
+  <div class="row"><span>⭐ <span id="gs">0</span></span><span id="gk">🔥 0</span><span id="gh"></span></div>
+  <div class="clue" id="cl"></div>
+  <div class="slots" id="sl"></div>
+  <div class="tiles" id="ti"></div>
+  <button class="btn sec" data-a="hint" id="hb2">💡 Hint</button>
+</section>
+</main>
+<div style="max-width:520px;margin:0 auto;padding:0 16px 16px;position:relative;z-index:1"><div class="ad" id="adbox"><script async="async" data-cfasync="false" src="https://bicea.org/21/2d76a8bd42d4db4a3208ce1e8428ba02"></script>
+<div id="container-2d76a8bd42d4db4a3208ce1e8428ba02"></div></div>
+</div>
+<div id="modal"></div><canvas id="cf"></canvas><div id="toast"></div>
+<script>
+/* ---- PUZZLES: "clue~piece+piece~decoy,decoy". Add rows to any tier to expand. ---- */
+const T={
+easy:["Yellow petals that follow the light~sun+flower~moon,tree","Colours after the storm~rain+bow~snow,arc","Flutters through the garden~butter+fly~milk,bee","Five-armed sea creature~star+fish~sun,crab","New Year’s Eve sky show~fire+works~sparks,ice","Sweet treat on a stick~lolli+pop~candy,soda","Flip it for breakfast~pan+cake~egg,pie","Hangs above the bed, filters nightmares~dream+catcher~sleep,hook","Front-camera photo~self+ie~me,cam","Winter fight ammo~snow+ball~ice,rain","Feed of photos and Reels~insta+gram~snap,tok","Best light for photos, just before sunset~golden+hour~silver,sun","Warm rays on your face~sun+shine~moon,light"],
+medium:["Endless negative-news habit~doom+scroll~gloom,swipe","Positive energy only~good+vibes~bad,mood","Treat yourself day~self+care~love,help","Staying in bed all day, on purpose~bed+rot~sofa,mold","The # symbol, turned into a word~hash+tag~pound,label","The people who watch your page~follow+ers~like,ing","Protagonist energy~main+character~side,hero","When a post blows up~go+viral~stop,fast","Short-video dance app~tik+tok~tick,snap","Posts pics of every meal~food+ie~eat,cook","Glow-up routine~skin+care~hair,hand","Playlist, snacks, open highway~road+trip~street,walk","What happens when the main event ends~after+party~before,club"],
+hard:["“I’m not lying.” (Gen Z)~no+cap~yes,hat","Big transformation, looking better~glow+up~shine,down","Nobody saw that coming in the movie~plot+twist~story,turn","Left on read forever~ghost+ing~spirit,ed","Everyone turns on you online~cancel+culture~delete,club","Watching a whole series in one sitting~binge+watch~eat,look","Friend group aspirations~squad+goals~team,aims","Checking if the mood is right~vibe+check~mood,tick","Too much low-quality content has fried your mind~brain+rot~mind,decay","Bragging while pretending not to~humble+brag~proud,boast","Peak summer mood~hot+girl+summer~cold,boy,winter","The footage after the main show~behind+the+scenes~front,of,stage","Share the gossip~spill+the+tea~drink,a,coffee"],
+expert:["Why you can’t stop checking your phone at the party~fear+of+missing+out~fun,lost,hiding","Did it perfectly, zero evidence~left+no+crumbs~ate,took,bread","Advice: go outside~touch+grass~feel,lawn","Mantra: keep winning, 24/7~slay+all+day~win,night,keep","Being unrealistic is the fix~delulu+is+the+solulu~real,problem,not","Quirky and proud of it~not+like+other+girls~unlike,boys,all","Moody libraries and tweed~dark+academia~light,school,gothic","Cheese, crackers and a pickle for dinner~girl+dinner~boy,lunch,snack","A flashback that hits hard~core+memory+unlocked~brain,locked,lost","Beige cashmere, no logos~quiet+luxury~loud,rich,soft","Showing a partner’s hand only~soft+launch~hard,start,tease","Nailed the brief perfectly~understood+the+assignment~missed,a,homework"],
+hosp:["Dial 0 and food arrives at your hotel door~room+service~house,key", "Where guests arrive and get their keys~front+desk~back,table", "Arriving and getting your room~check+in~look,out", "Leaving and paying the bill~check+out~look,in", "The team that cleans the rooms~house+keeping~home,cleaning", "Snacks and drinks fridge in your room~mini+bar~big,pub", "Morning alarm from reception~wake+up+call~sleep,down,text", "Sign for your door: leave me alone~do+not+disturb~please,no,bother", "Hotel luggage carrier~bell+boy~door,hop", "Plastic card that opens your room~key+card~door,pass", "Everything covered in one price~all+inclusive~some,exclusive", "Cosy stay with a morning meal~bed+and+breakfast~night,or,lunch", "Drinks at half price~happy+hour~sad,minute", "Makes cocktails behind the counter~bar+tender~bar,stool", "Fancy sit-down dinner out~fine+dining~rough,eating", "Order it and eat it elsewhere~take+away~give,home", "A small private home for guests~guest+house~host,room", "They park your car for you~valet+parking~butler,driving", "Where guests go for a swim~swimming+pool~diving,lake", "Trip for just-married couples~honey+moon~sugar,star", "Afternoon drink with scones~high+tea~low,coffee", "Warm bubbling spa bath~hot+tub~cold,bath", "Biggest bed size~king+size~queen,small", "First meal of the day~break+fast~lunch,stop", "Where you sleep in a hotel~bed+room~bath,house", "Place to grab a latte~coffee+shop~tea,store", "Opens the hotel door for you~door+man~gate,boy", "Leads tourists around~tour+guide~trip,leader", "Bus from the airport to your hotel~airport+shuttle~terminal,train"]};
+const TI={easy:["Easy","#c8ff3d",10],medium:["Medium","#35e0ff",20],hard:["Hard","#ff4fa3",35],expert:["Expert","#ffb43d",50],hosp:["Hospitality","#2de2c0",20]};
+const TIERS=["easy","medium","hard","expert"],mxl=s=>Math.max(...TIERS.map(k=>s.tc[k]||0)),all4=s=>TIERS.filter(k=>s.tc[k]>=13).length;
+const BD=[["first","🌱","First Mash",s=>s.solved>=1,"Solve your first puzzle",s=>[s.solved,1]],["t10","🧠","Brainiac",s=>s.solved>=10,"Solve 10 puzzles",s=>[s.solved,10]],["speed","⚡","Speed Demon",s=>s.fast,"Solve one in under 8 seconds",s=>[s.fast?1:0,1]],["s5","🔥","Unstoppable",s=>s.bestK>=5,"Solve 5 puzzles in a row",s=>[s.bestK,5]],["pure","✨","Perfect Player",s=>s.pure>=1,"Solve one without hints",s=>[s.pure,1]],["wiz","🏆","Word Wizard",s=>mxl(s)>=13,"Complete a level (13 puzzles)",s=>[mxl(s),13]],["dly","🎯","Daily Challenger",s=>s.dw>=1,"Finish a daily challenge",s=>[s.dw,1]],["dw7","📅","Daily Warrior",s=>s.ds>=7,"Keep a 7-day daily streak",s=>[s.ds,7]],["master","👑","Master Masher",s=>all4(s)===4,"Complete all four levels",s=>[all4(s),4]]];
+const RK=[["Beginner",0],["Word Explorer",100],["Word Master",400],["Brainiac",1000],["Word Legend",2500]];
+const rk=x=>{let i=0;RK.forEach((r,j)=>{if(x>=r[1])i=j});const n=RK[i+1];return[RK[i][0],i,n?n[1]-x:0,n?n[0]:""]};
+const pct=x=>{const r=rk(x),a=RK[r[1]][1],n=RK[r[1]+1];return n?Math.round((x-a)/(n[1]-a)*100):100};
+const WM=["Okay genius, we see you!","You cooked! Next level?","Your brain is on another level!","OMG! You know this? Now prove it again!"],FM=["Bruh! Your brain needs an update.","Not even close! Try again.","Come on, you’ve got this!","The answer was hiding in plain sight!","OMG! You didn’t even know this? 😂"];
+/* ---- ENDLESS GENERATOR: add stems to this list to grow the pool ---- */
+const mk=str=>{const L={},SET=new Set(),RW=new Set();str.split(";").forEach(g=>{const[a,r]=g.split(":");L[a]=r.split(",");L[a].forEach(b=>{SET.add(a+b);RW.add(b)})});return{L,SET,RW,STEMS:Object.keys(L)}};
+const MP=mk("sun:flower,shine,light,set,rise,burn,glasses;rain:bow,drop,coat,storm,forest;snow:man,ball,flake,storm,board;fire:fly,works,place,man,wall,truck;star:fish,light,dust,gazer;moon:light,shine,walk,stone,beam;sea:shell,horse,weed,food,side,gull;water:fall,melon,proof,color,front,mark;sand:castle,storm,paper,box,stone;back:pack,yard,bone,stage,ground,drop;home:work,made,town,sick,page;book:mark,shelf,worm,store;tooth:paste,brush,pick,ache;hair:cut,brush,band,spray,style;eye:ball,brow,lash,lid,sight;head:phone,band,line,light,ache,quarter;foot:ball,print,step,note,path,wear;hand:bag,shake,writing,made,cuff;pop:corn,star,song,cast;cup:cake,board;cheese:cake,burger;butter:fly,cup,milk,scotch;dragon:fly,fruit;day:dream,light,time,break;night:mare,fall,gown,club,life;mid:night,day,summer,way;super:man,market,star,hero,power;game:play,over,boy,changer;play:ground,list,mate,time,house;photo:graph,bomb,booth,copy;news:paper,feed,letter,cast;mail:box,man;air:port,plane,line,bag,mail;rail:road,way;high:light,way,school,lands;life:style,guard,time,line,boat;dead:line,pool,lock;some:thing,one,where,body,times;every:thing,one,where,body;break:fast,down,through,up;work:out,shop,place,load;snap:shot,chat;screen:shot,saver,play,time;hash:tag,brown;web:site,cam,page;black:board,bird,mail,list,smith,out;white:board,wash,house;blue:berry,print,bird,tooth;green:house,land,peace;gold:fish,mine,smith;silver:ware,fish,smith;sky:line,scraper,diving,lark;ice:berg,cream,cap,breaker,land;cat:walk,fish,nap;dog:house,fish;horse:shoe,power,play;bird:cage,house,bath;bee:hive,line;bed:room,time,rock,bug;bath:room,tub,robe;class:room,mate;door:bell,step,way,knob;key:board,chain,hole,note,word;lap:top;cell:phone,mate;smart:phone,watch,card;ear:phone,ring,drum,wax"),HP=mk("guest:house,room,book,list;house:keeping,boat,hold;bed:room,side,time,spread;bath:room,tub,robe;check:list,point,mate,in,out;tea:pot,spoon,cup,time,room;coffee:shop,cup,table,pot;wine:glass,list,bar,cellar;table:cloth,spoon,ware,top;dinner:table,time,party,plate;lunch:box,time,room;sea:food,side,view;pool:side,table,party;sun:bed,deck,screen,set,roof;door:man,bell,step,way,knob;room:mate,service;key:card,ring,hole;hot:tub,spot,dog,plate;honey:moon,comb;tour:guide,bus,ist;air:port,line,plane,bag;night:club,cap,stand,life;water:front,fall,park,melon;fire:place,side;mini:bar,golf,bus;bar:tender,stool,maid,code;side:walk,board,kick;beach:front,wear,ball");
+const HN={};"sunflower=Tall yellow bloom that faces the sun;rainbow=Seven colours after rain and sunshine;butterfly=Starts life as a caterpillar;starfish=Ocean animal shaped like its first piece;fireworks=Bang, boom and sparkle at festivals;lollipop=Candy on a stick;pancake=Syrup goes on top, first piece is a kitchen pan;dreamcatcher=Feather-and-web charm over beds;selfie=A photo of me, ends with “ie”;snowball=Roll it and throw it, first piece is cold and white;instagram=Photo app with Reels and Stories;goldenhour=Soft glow just before sunset;sunshine=What you get on a clear day;doomscroll=Thumb-swiping bad news for hours;goodvibes=Positive energy only;selfcare=Spa day, face mask and rest;bedrot=Lying in bed all day on purpose;hashtag=The # before a trending word;followers=The number under your profile name;maincharacter=The hero of your own story;goviral=Millions of views overnight;tiktok=Short-video dance app, sounds like a clock;foodie=Someone who loves eating, ends with “ie”;skincare=Serums, sunscreen and glow routine;roadtrip=Car, snacks, playlist and a long drive;afterparty=Starts when the main event ends;nocap=Gen-Z for “no lie”;glowup=A big change for the better;plottwist=A shocking turn in the story;ghosting=Vanishing without replying;cancelculture=Online backlash that shuts someone out;bingewatch=A whole season in one night;squadgoals=Your dream friend group;vibecheck=Is the mood right?;brainrot=What too much silly content does to you;humblebrag=Boasting while pretending not to;hotgirlsummer=Peak sunny-season swagger, 3 words;behindthescenes=What happens off-camera, 3 words;spillthetea=Share the gossip, 3 words;fearofmissingout=4 words, known as FOMO;leftnocrumbs=Did it perfectly, 3 words;touchgrass=Go outside!;slayallday=Keep winning, 3 words;deluluisthesolulu=4 words, it rhymes with itself;notlikeothergirls=4 words, “I’m different”;darkacademia=Moody libraries and tweed;girldinner=A snack-plate meal, 2 words;corememoryunlocked=3 words, a vivid flashback;quietluxury=Understated rich look with no logos;softlaunch=Hint at something without showing all;understoodtheassignment=3 words, did exactly what was needed;roomservice=Meals delivered to your door;frontdesk=The reception counter;checkin=Arrive and collect your key;checkout=Leave and settle the bill;housekeeping=They make your bed every day;minibar=Tiny fridge of snacks and drinks;wakeupcall=Reception rings you in the morning;donotdisturb=The sign on your door handle;bellboy=Carries your bags;keycard=Swipe it to open your room;allinclusive=Meals and drinks in one price;bedandbreakfast=Small inn: a bed plus a morning meal;happyhour=Cheap drinks for a short window;bartender=Mixes your cocktails;finedining=A fancy, formal restaurant meal;takeaway=Food you carry out;guesthouse=Small private lodging;valetparking=Staff park your car for you;swimmingpool=Where guests splash;honeymoon=Trip for newlyweds;hightea=Sandwiches and scones around 4pm;hottub=Warm bubbling bath;kingsize=The biggest bed;breakfast=The first meal of the day;bedroom=Where you sleep;coffeeshop=Café for lattes;doorman=Greets guests and opens the door;tourguide=Leads the sightseers;airportshuttle=Bus that takes you to your flight".split(";").forEach(x=>{const i=x.indexOf("=");HN[x.slice(0,i)]=x.slice(i+1)});
+const P=s=>{const[a,b,c]=s.split("~"),p=b.split("+"),k=p.join("");return{c:a,p,d:c.split(","),h:HN[k]||"Starts with “"+k[0].toUpperCase()+"”, "+k.length+" letters"}};
+const $=id=>document.getElementById(id);
+const day=()=>Math.floor(Date.now()/864e5); /* UTC day: same daily puzzle for everyone */
+const cap=w=>w.charAt(0).toUpperCase()+w.slice(1);
+let S={score:0,best:0,streak:0,bestK:0,solved:0,pure:0,exp:0,dw:0,daily:-1,snd:1,mus:1,lvl:0,hl:0,xp:0,bt:0,ds:0,dl:-1,done:[],tc:{easy:0,medium:0,hard:0,expert:0,hosp:0},hp:5,seen:[],prog:{easy:0,medium:0,hard:0,expert:0},bd:[]};
+try{Object.assign(S,JSON.parse(localStorage.getItem("wm1")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("wm1",JSON.stringify(S))}catch(e){}};
+let G=null,AC=null;
+/* ---- sound ---- */
+function tone(f,d=.12,t="sine",at=0,v=.12){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+at;o.type=t;o.frequency.setValueAtTime(f,s);g.gain.setValueAtTime(v,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d)}catch(e){}}
+const sfx={click:()=>tone(500,.05),pick:()=>tone(620+Math.random()*200,.08,"triangle"),ok:()=>[523,659,784,1047,1319].forEach((f,i)=>tone(f,.25,"triangle",i*.09)),bad:()=>[220,180,140].forEach((f,i)=>tone(f,.2,"sawtooth",i*.12,.08)),no:()=>tone(200,.18,"square",0,.06),ach:()=>[784,988,1319].forEach((f,i)=>tone(f,.2,"triangle",i*.1))};
+/* ---- background music: generative lo-fi loop (WebAudio) ---- */
+let mus=null;
+function mt(f,d,t,v,at=.02){try{const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+at;o.type=t;o.frequency.value=f;g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(v,s+.03);g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d+.05)}catch(e){}}
+function music(on){
+  clearInterval(mus);mus=null;if(!on)return;
+  try{AC=AC||new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}
+  const ch=[[261.6,329.6,392],[220,261.6,329.6],[174.6,220,261.6],[196,246.9,293.7]],pn=[523,587,659,784,880,1047];let n=0;
+  mus=setInterval(()=>{const c=ch[(n>>3)%4];
+    mt(c[[0,1,2,1][n%4]]*2,.5,"triangle",.045);
+    if(n%8===0){mt(c[0]/2,2,"sine",.1);mt(c[1],2,"sine",.03)}
+    if(n%4===2&&Math.random()<.65)mt(pn[Math.random()*6|0],.9,"sine",.05);
+    n++},300);
+}
+const icons=()=>document.querySelectorAll("[data-a=mus]").forEach(b=>b.textContent=S.mus?"🎵":"🔕");
+/* ---- ui helpers ---- */
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),2200)}
+const adDone={};function adPush(i){if(adDone[i])return;adDone[i]=1;try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}}
+function show(id){document.querySelectorAll(".screen").forEach(e=>e.classList.toggle("on",e.id===id));window.scrollTo(0,0);adPush(id==="game"?"ad2":"ad1")}
+function modal(h){const m=$("modal");m.innerHTML=h;m.classList.add("on")}
+const closeM=()=>$("modal").classList.remove("on");
+function confetti(){const c=$("cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#ff4fa3","#c8ff3d","#35e0ff","#ffb43d","#fff"];const ps=Array.from({length:130},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:5+Math.random()*7,r:Math.random()*6,c:cols[Math.random()*5|0]}));let f=0;(function a(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.4;p.r+=.2;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillRect(-p.s/2,-p.s/2,p.s,p.s/2);x.restore()});if(++f<130)requestAnimationFrame(a);else x.clearRect(0,0,c.width,c.height)})()}
+/* ---- home ---- */
+const unlocked=k=>{const i=TIERS.indexOf(k);return i<1||(S.tc[TIERS[i-1]]||0)>=8||S.lvl>=[0,6,14,26][i]};
+function cnt(id,v){const e=$(id),a=+e.dataset.v||0;e.dataset.v=v;if(a===v){e.textContent=v;return}const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/600);e.textContent=Math.round(a+(v-a)*k);if(k<1)requestAnimationFrame(f)})(t0)}
+function stats(){cnt("hs",S.score);cnt("hb",S.best);cnt("hk",S.streak);cnt("hn",S.solved);cnt("hx",S.xp);cnt("hl2",Math.floor(S.xp/50)+1);cnt("hd",S.dl>=day()-1?S.ds:0);$("ht").textContent=S.bt?S.bt+"s":"–";const r=rk(S.xp);$("rn").textContent="🎖 "+r[0];$("xu").style.width=pct(S.xp)+"%";$("rx").textContent=r[2]?r[2]+" XP to "+r[3]:"Max rank"}
+function home(){
+  stats();
+  if(!S.ul)S.ul=TIERS.filter(unlocked);const nu=TIERS.filter(k=>unlocked(k)&&!S.ul.includes(k));
+  if(nu.length){S.ul.push(...nu);save();setTimeout(()=>{toast("🔓 "+TI[nu[0]][0]+" level unlocked!");sfx.ach()},400)}
+  $("lv").innerHTML=TIERS.map((k,i)=>{const n=S.tc[k]||0,p=Math.min(100,Math.round(n/13*100)),u=unlocked(k);return`<button class="lc ${u?"":"lock"} ${nu.includes(k)?"nu":""}" data-a="tier" data-t="${k}" style="--c:${TI[k][1]}"><b>${i+1}. ${["Warm-up","Mash Up","Brain Burn","Mind Melt"][i]}</b><span>${TI[k][0]} · ${n} solved · ${p}%</span><i><u style="width:${p}%"></u></i><em>${u?"🔓 Unlocked":"🔒 Solve 8 "+TI[TIERS[i-1]][0]+" puzzles"}</em></button>`}).join("");
+  $("bg").innerHTML=BD.map(b=>{const on=S.bd.includes(b[0]),p=b[5](S);return`<div class="bd ${on?"":"off"}"><b>${b[1]}</b><div><strong>${b[2]}</strong><small>${b[4]}${on?" ✓":" · "+Math.min(p[0],p[1])+"/"+p[1]}</small></div></div>`}).join("");
+  $("dl").innerHTML="Daily challenge"+(S.daily===day()?" ✓":"")+"<small>"+(S.daily===day()?"Done today · replay for fun":"+50 pts, +40 XP")+" · next in <span id=\"cd\"></span></small>";
+  $("sb").textContent=S.snd?"🔊":"🔇";icons();show("home");
+}
+function play(){start(0)}
+function oldPlay(){const k=Object.keys(T).find(k=>S.prog[k]<T[k].length&&S.prog[k]>0)||Object.keys(T).find(k=>S.prog[k]===0)||"easy";start(k)}
+/* ---- game ---- */
+const autoTier=()=>S.lvl<6?"easy":S.lvl<14?"medium":S.lvl<26?"hard":"expert";
+const rnd=a=>a[Math.random()*a.length|0];
+const ansTxt=()=>{const p=G.pz;return p.show.map(cap).join(" + ")+" = "+p.show.join(p.gen?"":" ").toUpperCase()};
+function genPz(t,K){const{L,SET,RW,STEMS}=K,a=rnd(STEMS),b=rnd(L[a]),left=Math.random()<.5,n=[3,4,5,6,4][["easy","medium","hard","expert","hosp"].indexOf(t)];
+  const pool=(left?[...RW]:STEMS).filter(d=>!SET.has(left?a+d:d+b)&&d!==(left?b:a));
+  const d=[...new Set(pool.sort(()=>Math.random()-.5).slice(0,n))],f=a+b;
+  return{c:left?cap(a)+" + ___":"___ + "+cap(b),p:[left?b:a],d,pre:left?a:b,side:left?"l":"r",show:[a,b],gen:1,k:K,h:"A "+f.length+"-letter word starting with “"+f[0].toUpperCase()+"”"}}
+function newPz(){const t=G.fix||autoTier(),c=T[t].map((_,j)=>t+":"+j).filter(k=>!S.seen.includes(k));let pz;
+  if(t!=="hosp"&&S.lvl>=3&&Math.random()<.1){pz=P(rnd(T.expert));pz.sur=1}else if(c.length&&Math.random()<.55){const k=rnd(c);S.seen.push(k);pz=P(T[t][+k.split(":")[1]])}else pz=genPz(t,t==="hosp"?HP:MP);
+  G.tier=t;G.pz=pz;load()}
+function start(tier,daily){
+  if(daily){const all=["easy","medium","hard","expert"].flatMap(k=>T[k].map((_,j)=>[k,j]));const a=all[day()%all.length];G={tier:a[0],fix:a[0],daily:1,pz:P(T[a[0]][a[1]])};load()}
+  else{G={fix:tier||0,daily:0};newPz()}
+}
+function load(){
+  const pz=G.pz;pz.show=pz.show||pz.p;Object.assign(G,{pz,ans:pz.p.join(""),tiles:[...pz.p,...pz.d].sort(()=>Math.random()-.5).map((w,id)=>({w,id})),sel:[],lives:3,hints:0,gone:0,first:0,lock:0});
+  G.t0=Date.now();if(pz.sur){sfx.ok();toast("⚡ SURPRISE ROUND! Double XP")}show("game");render();
+}
+function render(){
+  const{pz,tiles,sel,lives}=G,n=pz.p.length,len=T[G.tier].length;
+  $("gl").textContent=(G.daily?"Daily · ":"")+TI[G.tier][0]+" · Level "+((G.tier==="hosp"?S.hl:S.lvl)+1);
+  $("pg").style.width=((G.tier==="hosp"?S.hl:S.lvl)%5*20)+"%";
+  $("gs").textContent=S.score;$("gk").textContent=CB>=2?"⚡ ×"+Math.min(CB,3)+" combo":"🔥 "+S.streak;$("gh").textContent="❤️".repeat(lives)+"🖤".repeat(3-lives);
+  $("cl").innerHTML=(pz.sur?'<div class="sur">⚡ SURPRISE ROUND!</div>':"")+pz.c+(G.hints>0?"<small>🔤 Starts with “"+(pz.gen?pz.p[0]:G.ans)[0].toUpperCase()+"”</small>":"")+(G.hints>1?"<small>💡 "+pz.h+"</small>":"");
+  $("sl").innerHTML=Array.from({length:n},(_,k)=>{const t=tiles.find(t=>t.id===sel[k]);return`<button class="slot ${t?"f":""} ${G.first&&k===0?"k":""}" data-a="un" data-k="${k}">${t?t.w:""}</button>`}).join("");
+  const keep=new Set(pz.p);
+  $("ti").innerHTML=tiles.map(t=>`<button class="tile ${sel.includes(t.id)?"used":""} ${G.gone&&!keep.has(t.w)?"hide":""}" data-a="pick" data-id="${t.id}">${t.w}</button>`).join("");
+  $("hb2").textContent="💡 Hint ("+S.hp+" free)";$("hb2").disabled=G.hints>=3||S.hp<1;
+}
+function pick(id){
+  if(G.lock||G.sel.length>=G.pz.p.length||G.sel.includes(id))return;
+  G.sel.push(id);sfx.pick();render();if(G.sel.length===G.pz.p.length)check();
+}
+function unpick(k){if(G.lock||(G.first&&k===0)||k>=G.sel.length)return;G.sel.splice(k,1);sfx.click();render()}
+function check(){
+  G.lock=1;const got=G.sel.map(id=>G.tiles.find(t=>t.id===id).w).join("");
+  const z=G.pz,full=z.gen?(z.side==="l"?z.pre+got:got+z.pre):got;if(z.gen?z.k.SET.has(full.toLowerCase()):full.toLowerCase()===G.ans.toLowerCase())return setTimeout(win,350);
+  G.lives--;CB=0;
+  if(G.lives<=0){S.streak=0;save();sfx.bad();render();return setTimeout(fail,500)}
+  sfx.no();$("sl").classList.add("shake");toast("Not quite. "+G.lives+(G.lives>1?" tries":" try")+" left");
+  setTimeout(()=>{$("sl").classList.remove("shake");G.sel=G.first?[G.tiles.find(t=>t.w===G.pz.p[0]).id]:[];G.lock=0;render()},550);
+}
+function hint(){
+  if(G.hints>=3||G.lock)return;if(S.hp<1)return toast("No hints left. Solve puzzles to earn more!");sfx.click();
+  if(G.hints===0)toast("First letter revealed");else if(G.hints===1)toast("Clue revealed");else{G.gone=1;toast("Wrong pieces removed")}
+  S.hp--;G.hints++;save();render();
+}
+let CB=0;
+function win(){
+  const el=Math.round((Date.now()-G.t0)/100)/10,key=G.pz.show.join(""),first=!S.done.includes(key),r0=rk(S.xp);
+  if(first){CB++;S.streak++;S.bestK=Math.max(S.bestK,S.streak)}const m=Math.min(Math.max(CB,1),3);
+  let pts=Math.max(5,TI[G.tier][2]+G.lives*5+Math.min(S.streak,5)*2-G.hints*5),bonus=0,xp=0;
+  if(first){xp=(10+({medium:5,hard:10,expert:20,hosp:5}[G.tier]||0)+(el<8?8:el<15?4:0))*m*(G.pz.sur?2:1);S.done.push(key);if(S.done.length>600)S.done.shift();S.solved++;S.tc[G.tier]=(S.tc[G.tier]||0)+1;if(S.solved%3===0)S.hp=Math.min(9,S.hp+1);if(S.tc[G.tier]===13){xp+=50;toast("🏆 Level complete! +50 XP")}if(!G.daily){G.tier==="hosp"?S.hl++:S.lvl++}}
+  else pts=Math.ceil(pts/5);
+  pts*=m;
+  if(G.daily&&S.daily!==day()){bonus=50;xp+=40;S.dw++;S.ds=S.dl===day()-1?S.ds+1:1;S.dl=day();S.daily=day()}
+  pts+=bonus;S.score+=pts;S.best=Math.max(S.best,S.score);if(!G.hints)S.pure++;if(G.tier==="expert")S.exp=1;
+  S.bt=S.bt?Math.min(S.bt,el):el;if(el<8)S.fast=1;S.xp+=xp;G.res={el,pts};
+  const nb=BD.filter(b=>!S.bd.includes(b[0])&&b[3](S));nb.forEach(b=>S.bd.push(b[0]));const r1=rk(S.xp);save();
+  sfx.ok();confetti();
+  const cr=G.chal?`<p class="cr">${el<G.chal.time?"🏆 You beat your friend!":"😅 Your friend wins this one."}<br>You ${el}s / ${G.chal.score>pts?"":""}${pts} pts vs ${G.chal.time}s / ${G.chal.score} pts</p>`:"";
+  modal(`<div class="pop win"><div class="big">${CB>=5?"🔥":"🎉"}</div><h2>${el<8?"WHAT?! That was FAST!":rnd(WM)}</h2><div class="ans">${ansTxt()}</div>${cr}<p><b>+${pts}</b> pts${m>1?" · <b>×"+m+" combo</b>":""} · <b>+${xp}</b> XP${first?"":" (replay: no XP)"} · ⏱ ${el}s${bonus?"<br>Daily bonus included!":""}</p><div class="xb"><u id="mxl" style="width:${pct(S.xp-xp)}%"></u></div><small>${r1[0]} · ${r1[2]?r1[2]+" XP to "+r1[3]:"Max rank"}</small>${nb.length?"<p>🏅 "+nb.map(b=>b[1]+" "+b[2]).join(", ")+"</p>":""}<button class="btn go" data-a="next" style="margin-top:12px">${G.daily?"Back home":"Next puzzle"}</button><div class="two"><button class="btn sec" data-a="rep">↺ Replay</button><button class="btn sec" data-a="wa">💬 WhatsApp</button></div><button class="btn sec" data-a="ch">🔗 Challenge a friend</button></div>`);
+  setTimeout(()=>{const u=$("mxl");if(u)u.style.width=pct(S.xp)+"%"},150);
+  if(r1[1]>r0[1])setTimeout(()=>{sfx.ach();confetti();toast("🎖 Rank up: "+r1[0]+"!")},900);
+  else if(CB%5===0)setTimeout(()=>{confetti();toast("🔥 "+CB+"x combo! Unstoppable!")},700);
+  else if(nb.length)setTimeout(()=>{sfx.ach();toast("🏅 "+nb[0][2]+" unlocked!")},1100);
+  render();$("gk").classList.add("cb");setTimeout(()=>$("gk").classList.remove("cb"),500);
+}
+function chalLink(){const z=G.pz,o={p:{c:z.c,p:z.p,d:z.d,show:z.show,pre:z.pre,side:z.side,gen:z.gen,h:z.h},hs:G.tier==="hosp"?1:0,tier:G.tier,time:G.res.el,score:G.res.pts};return location.origin+location.pathname+"#c="+btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
+const chalText=()=>(G.chal?`WordMash result: me ${G.res.el}s vs you ${G.chal.time}s. `:"")+`I solved a WordMash puzzle in ${G.res.el}s (+${G.res.pts} pts). Can you beat me? ${chalLink()}`;
+function wa(){window.open("https://wa.me/?text="+encodeURIComponent(chalText()),"_blank")}
+function ch(){const t=chalText();if(navigator.share)navigator.share({text:t}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Challenge link copied!"),()=>toast("Copy failed"));else toast("Sharing isn’t supported here")}
+let CH=null;
+function openChal(){const m=location.hash.match(/^#c=(.+)$/);if(!m)return;try{const o=JSON.parse(decodeURIComponent(escape(atob(m[1])))),q=o.p,cl=x=>String(x).replace(/[<>&"'`]/g,""),a=x=>x.map(cl);
+  if(!T[o.tier]||!Array.isArray(q.p)||!Array.isArray(q.d)||!Array.isArray(q.show))return;
+  o.p={c:cl(q.c),p:a(q.p),d:a(q.d),show:a(q.show),pre:cl(q.pre||""),side:q.side==="r"?"r":"l",gen:q.gen?1:0,h:cl(q.h||""),k:o.hs?HP:MP};o.time=+o.time||0;o.score=+o.score||0;CH=o;history.replaceState(null,"",location.pathname);
+  modal(`<div class="pop"><div class="big">⚔️</div><h2>A friend challenged you!</h2><p>Beat <b>${o.time}s</b> and <b>${o.score}</b> pts.</p><button class="btn go" data-a="cs">Accept challenge</button></div>`)}catch(e){}}
+function fail(){CB=0;modal(`<div class="pop bad"><div class="big">🤡</div><h2>${rnd(FM)}</h2><p>Combo reset. Shake it off!</p><button class="btn go" data-a="retry">Try again</button>${S.hp>0?`<button class="btn sec" data-a="hr">💡 Retry with a hint (${S.hp})</button>`:""}<button class="btn sec" data-a="reveal">Reveal the answer</button></div>`)}
+function reveal(){modal(`<div class="pop"><div class="big">👀</div><h2>It was…</h2><div class="ans">${ansTxt()}</div><button class="btn go" data-a="skip">${G.daily?"Back home":"Next puzzle"}</button><button class="btn sec" data-a="retry">Try again</button></div>`)}
+function next(){closeM();G.chal=0;if(G.daily)return home();save();$("game").style.opacity=0;setTimeout(()=>{newPz();$("game").style.opacity=1},200)}
+function retry(){closeM();G.t0=Date.now();const t=G.tiles;G.sel=[];G.lives=3;G.lock=0;G.hints=0;G.gone=0;G.first=0;G.tiles=t.sort(()=>Math.random()-.5);render()}
+function share(){
+  const t=`I just solved a ${TI[G.tier][0]} puzzle on Word Mash 🔥 Streak: ${S.streak} · Score: ${S.score}. Can you beat me?`;
+  if(navigator.share)navigator.share({text:t}).catch(()=>{});
+  else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>toast("Result copied!"),()=>toast(t));
+  else toast(t);
+}
+/* ---- events ---- */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;if(S.mus&&!mus)music(1);
+  if(a!=="pick"&&a!=="un")sfx.click();
+  ({play,daily:()=>start(0,1),tier:()=>{const t=b.dataset.t;if(t!=="hosp"&&!unlocked(t))return toast("🔒 Solve 8 "+TI[TIERS[TIERS.indexOf(t)-1]][0]+" puzzles to unlock");start(t)},pick:()=>pick(+b.dataset.id),un:()=>unpick(+b.dataset.k),hint,next:()=>next(),skip:()=>next(1),retry,reveal,rep:retry,hr:()=>{retry();hint()},wa,ch,cs:()=>{closeM();G={fix:CH.tier,daily:0,chal:CH,tier:CH.tier,pz:CH.p};load()},
+  mus:()=>{S.mus=S.mus?0:1;music(S.mus);icons();save()},snd:()=>{S.snd=S.snd?0:1;$("sb").textContent=S.snd?"🔊":"🔇";save()},
+  pause:()=>modal(`<div class="pop"><div class="big">⏸</div><h2>Paused</h2><button class="btn go" data-a="resume">Resume</button><button class="btn sec" data-a="home">Back to home</button></div>`),
+  resume:closeM,home:()=>{closeM();home()}})[a]();
+});
+setInterval(()=>{const e=$("cd");if(e){const s=Math.max(0,Math.floor(((day()+1)*864e5-Date.now())/1e3));e.textContent=[s/3600|0,s/60%60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")}},1000);
+home();openChal();
+</script>
+</body>
+</html>
